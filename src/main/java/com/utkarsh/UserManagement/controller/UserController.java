@@ -46,5 +46,13 @@ public class UserController {
           return userService.findUserByName(username);
       }
 
+      @PostMapping("/updateuser")
+    public User updateUser(User user){
+          return userService.updateExitingUser(user);
+      }
+
+
+
+
 
 }

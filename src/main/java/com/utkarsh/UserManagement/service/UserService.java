@@ -30,6 +30,19 @@ public class UserService {
     }
 
     public User findUserByName(String username) {
-        return null;
+        return userRepository.findByUsername(username);
+    }
+
+    public User updateExitingUser(User user) {
+        User userexits = userRepository.findById(user.getId()).orElseThrow(()->new IllegalStateException("User already exists"));
+
+        if(userexits==null){
+           return userRepository.save(user);
+        }
+        else{
+            userRepository.deleteById(user.getId());
+            userRepository.save(user);
+        }
+        return user;
     }
 }
