@@ -37,6 +37,11 @@ public class UserController {
 
 
    // Fetch user
+    @GetMapping("/showalluser")
+   public List<User> showalluser(){
+          return userService.showAllUser();
+    }
+
 
 
       @GetMapping("/showuser/{id}")
@@ -46,7 +51,7 @@ public class UserController {
 
       }
 
-      @GetMapping("/showuserbyname{username}")
+      @GetMapping("/showuserbyname/{username}")
     public User showUserByName(@PathVariable String username){
 
           return userService.findUserByName(username);
@@ -55,7 +60,7 @@ public class UserController {
 
       // Update user
       @PostMapping("/updateuser")
-    public User updateUser(User user){
+    public User updateUser(@RequestBody  User user){
           return userService.updateExitingUser(user);
       }
 
@@ -64,9 +69,9 @@ public class UserController {
 
 
 
-    @PostMapping("/deleteUser")
-    public boolean deleteUser(User user){
-          return userService.deleteuser(user);
+    @PostMapping("/deleteUserbyid/{id}")
+    public boolean deleteUser(@PathVariable int id){
+          return userService.deleteuser(id);
     }
 }
 

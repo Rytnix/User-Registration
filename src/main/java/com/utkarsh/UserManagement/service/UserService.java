@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,6 +25,7 @@ public class UserService {
     }
 
 
+
     public User findUserbyId(int id) {
 
         return userRepository.findById(id).orElseThrow(()-> new IllegalStateException("User with id ->"+id+" not found"));
@@ -34,9 +36,9 @@ public class UserService {
     }
 
     public User updateExitingUser(User user) {
-        User userexits = userRepository.findById(user.getId()).orElseThrow(()->new IllegalStateException("User already exists"));
+        Optional<User> userexits = userRepository.findById(user.getId());
 
-        if(userexits==null){
+        if(userexits.isEmpty()){
            return userRepository.save(user);
         }
         else{
@@ -46,12 +48,16 @@ public class UserService {
         return user;
     }
 
-    public boolean deleteuser(User user) {
-        User exits = userRepository.findById(user.getId()).orElseThrow(()->new IllegalStateException("User not found"));
-        if(exits!=null){
-            userRepository.delete(user);
+    public boolean deleteuser(int id) {
+        Optional<User> exits = userRepository.findById(id);
+        if(!exits.isEmpty()){
+            userRepository.deleteById(id);
             return true;
         }
         return false;
+    }
+
+    public List<User> showAllUser() {
+        return userRepository.findAll();
     }
 }
