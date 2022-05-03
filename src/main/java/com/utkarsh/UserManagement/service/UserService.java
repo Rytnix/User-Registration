@@ -45,4 +45,13 @@ public class UserService {
         }
         return user;
     }
+
+    public boolean deleteuser(User user) {
+        User exits = userRepository.findById(user.getId()).orElseThrow(()->new IllegalStateException("User not found"));
+        if(exits!=null){
+            userRepository.delete(user);
+            return true;
+        }
+        return false;
+    }
 }

@@ -20,6 +20,8 @@ public class UserController {
 
     //POST User
 
+
+    //Register User
       @PostMapping("/registeruser")
        public User registerUser(@RequestBody User user){
 
@@ -32,6 +34,10 @@ public class UserController {
 
           return userService.addMultipleUser(user);
       }
+
+
+   // Fetch user
+
 
       @GetMapping("/showuser/{id}")
     public User showUserbyId(@PathVariable int id){
@@ -47,8 +53,22 @@ public class UserController {
       }
 
 
+      // Update user
+      @PostMapping("/updateuser")
+    public User updateUser(User user){
+          return userService.updateExitingUser(user);
+      }
+
+
+      //Delete user
 
 
 
-
+    @PostMapping("/deleteUser")
+    public boolean deleteUser(User user){
+          return userService.deleteuser(user);
+    }
 }
+
+
+
