@@ -1,9 +1,8 @@
 package com.utkarsh.UserManagement.controller;
 
 import com.utkarsh.UserManagement.model.User;
-import com.utkarsh.UserManagement.service.UserService;
+import com.utkarsh.UserManagement.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     //Rest Endpoints..
 
@@ -29,16 +28,11 @@ public class UserController {
           return userService.addUser(user);
       }
 
-      @PostMapping("/registermultipleuser")
-       public List<User> registerMultipleUser(@RequestBody List<User> user){
-
-          return userService.addMultipleUser(user);
-      }
 
 
    // Fetch user
     @GetMapping("/showalluser")
-   public List<User> showalluser(){
+   public String showalluser(){
           return userService.showAllUser();
     }
 
@@ -66,6 +60,11 @@ public class UserController {
 
 
       //Delete user
+
+    @PostMapping("/deletealluser")
+    public String deleteAllUser(){
+          return userService.deleteAllUser();
+    }
 
 
 
